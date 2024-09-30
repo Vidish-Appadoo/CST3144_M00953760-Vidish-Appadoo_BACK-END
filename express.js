@@ -12,6 +12,19 @@ app.use(cors());
 // Connect to Mongo
 const client = new MongoClient(MONGO_URI);
 
+// Connect to MongoDB
+async function connectToMongo() {
+    try {
+      await client.connect();
+      db = client.db('CST3144_M00953760');  
+      lessonsCollection = db.collection('LESSON');
+      ordersCollection = db.collection('ORDERS');
+      console.log('Connected to MongoDB');
+    } catch (error) {
+      console.error('MongoDB connection failed:', error);
+    }
+  }
+
 
 // Start the server
 const PORT =  3000;
