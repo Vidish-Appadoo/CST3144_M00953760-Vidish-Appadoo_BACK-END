@@ -45,26 +45,27 @@ app.put('/lessons/update-seats', async (req, res) => {
     try {
         // Find the lesson in the database
         const lesson = await lessonsCollection.findOne({ lesson_title, location });
-
-        //getting initial value of seats_available
+        // Get the initial value of seats_available
         let newSeatsAvailable = lesson.seats_available;
 
-        // Determine the new value for seats_available based on action
+        // Determine the new value for seats_available based on the action
         if (action === 'add') {
-        newSeatsAvailable--;
+            newSeatsAvailable--;
         } else if (action === 'remove') {
-        newSeatsAvailable++;
+            newSeatsAvailable++;
         }
+
         // Update the seats_available field in the database
         await lessonsCollection.updateOne(
-        { lesson_title, location },
-        { $set: { seats_available: newSeatsAvailable } }
+            { lesson_title, location },
+            { $set: { seats_available: newSeatsAvailable } }
         );
     } catch (error) {
         console.error('Error updating seats:', error);
         res.status(500).json({ message: 'Failed to update seats' });
     }
 });
+
 
 connectToMongo();
 
