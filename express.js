@@ -59,6 +59,28 @@ app.put('/lessons/update-seats', async (req, res) => {
     }
 });
 
+// API route for checkout
+app.post('/lessons/checkout', async (req, res) => {
+    const { order } = req.body;
+    const { name, phone_number, lessons_taken, seats_taken } = order;
+    try {
+        // Store the order in the ORDERS collection
+        const orderData = {
+            name: name,
+            phone_number: phone_number,
+            lessons_taken: lessons_taken,
+            seats_taken: seats_taken,
+        };
+
+        await ordersCollection.insertOne(orderData);
+
+        res.json({ success: true, message: 'Checkout and seat update successful!' });
+    } catch (error) {
+        console.error('Error during checkout:', error);
+        res.status(500).json({ success: false, message: 'Checkout failed.' });
+    }
+});
+
 
 connectToMongo();
 
