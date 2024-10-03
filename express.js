@@ -41,25 +41,18 @@ app.get('/lessons', async (req, res) => {
 
 // API route to update seats_available
 app.put('/lessons/update-seats', async (req, res) => {
-    const { lesson_title, location, action } = req.body;
+    const { cart } = req.body;
     try {
-        // Find the lesson in the database
-        const lesson = await lessonsCollection.findOne({ lesson_title, location });
-        // Get the initial value of seats_available
-        let newSeatsAvailable = lesson.seats_available;
+        for (const lesson of cart) {
+            const { lesson_title, location } = lesson;
+            const lessonInDB = await lessonsCollection.findOne({ lesson_title, location });
 
-        // Determine the new value for seats_available based on the action
-        if (action === 'add') {
-            newSeatsAvailable--;
-        } else if (action === 'remove') {
-            newSeatsAvailable++;
+            await lessonsCollection.updateOne(
+                { lesson_title, location },
+                { $set: { seats_available: lessonInDB.seats_available - 1 } }
+            );
         }
-
-        // Update the seats_available field in the database
-        await lessonsCollection.updateOne(
-            { lesson_title, location },
-            { $set: { seats_available: newSeatsAvailable } }
-        );
+        res.json({ success: true, message: 'Seats updated successfully' });
     } catch (error) {
         console.error('Error updating seats:', error);
         res.status(500).json({ message: 'Failed to update seats' });
