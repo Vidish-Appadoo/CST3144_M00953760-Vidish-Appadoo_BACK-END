@@ -81,6 +81,25 @@ app.post('/lessons/checkout', async (req, res) => {
     }
 });
 
+// Add a new route to handle search requests
+app.get('/lessons/search', async (req, res) => {
+    const searchTerm = req.query.q;  // Get the search term from the query string
+    try {
+        // Perform a case-insensitive search using MongoDB's $regex
+        const filteredLessons = await lessonsCollection.find({
+            lesson_title: { $regex: searchTerm, $options: 'i' }  // Case-insensitive search
+        })
+        .sort({ lesson_title: 1 })  // Sort alphabetically by lesson_title
+        .toArray();
+
+        res.json(filteredLessons);  // Return filtered lessons as JSON
+    } catch (error) {
+        console.error('Error during search:', error);
+        res.status(500).json({ message: 'Failed to fetch search results' });
+    }
+});
+
+
 
 connectToMongo();
 
