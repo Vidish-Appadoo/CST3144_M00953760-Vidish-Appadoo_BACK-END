@@ -1,0 +1,152 @@
+[
+  {
+    "_id": {
+      "$oid": "66f3a9ea26d61b3a4734beb3"
+    },
+    "subject_name": "Math",
+    "price": 200,
+    "location": "Building A, Room 101",
+    "seats_available": 5,
+    "lesson_title": "Math 101"
+  },
+  {
+    "_id": {
+      "$oid": "66f3a9ea26d61b3a4734beb4"
+    },
+    "subject_name": "Physics",
+    "price": 250,
+    "location": "Building B, Room 203",
+    "seats_available": 5,
+    "lesson_title": "Physics 202"
+  },
+  {
+    "_id": {
+      "$oid": "66f3a9ea26d61b3a4734beb5"
+    },
+    "subject_name": "Chemistry",
+    "price": 300,
+    "location": "Building C, Room 305",
+    "seats_available": 5,
+    "lesson_title": "Chemistry 303"
+  },
+  {
+    "_id": {
+      "$oid": "66f3a9ea26d61b3a4734beb6"
+    },
+    "subject_name": "Biology",
+    "price": 220,
+    "location": "Building D, Room 102",
+    "seats_available": 5,
+    "lesson_title": "Biology 101"
+  },
+  {
+    "_id": {
+      "$oid": "66f3a9ea26d61b3a4734beb7"
+    },
+    "subject_name": "History",
+    "price": 180,
+    "location": "Building E, Room 202",
+    "seats_available": 5,
+    "lesson_title": "History 201"
+  },
+  {
+    "_id": {
+      "$oid": "66f3a9ea26d61b3a4734beb8"
+    },
+    "subject_name": "Geography",
+    "price": 240,
+    "location": "Building F, Room 301",
+    "seats_available": 5,
+    "lesson_title": "Geography 301"
+  },
+  {
+    "_id": {
+      "$oid": "66f3a9ea26d61b3a4734beb9"
+    },
+    "subject_name": "Computer Science",
+    "price": 350,
+    "location": "Building G, Room 401",
+    "seats_available": 5,
+    "lesson_title": "Computer Science 401"
+  },
+  {
+    "_id": {
+      "$oid": "66f3a9ea26d61b3a4734beba"
+    },
+    "subject_name": "English Literature",
+    "price": 210,
+    "location": "Building H, Room 104",
+    "seats_available": 5,
+    "lesson_title": "English Literature 102"
+  },
+  {
+    "_id": {
+      "$oid": "66f3a9ea26d61b3a4734bebb"
+    },
+    "subject_name": "Art",
+    "price": 230,
+    "location": "Building I, Room 204",
+    "seats_available": 5,
+    "lesson_title": "Art 204"
+  },
+  {
+    "_id": {
+      "$oid": "66f3a9ea26d61b3a4734bebc"
+    },
+    "subject_name": "Economics",
+    "price": 290,
+    "location": "Building J, Room 303",
+    "seats_available": 5,
+    "lesson_title": "Economics 303"
+  },
+  {
+    "_id": {
+      "$oid": "66f3a9ea26d61b3a4734bebd"
+    },
+    "subject_name": "Sociology",
+    "price": 170,
+    "location": "Building K, Room 101",
+    "seats_available": 5,
+    "lesson_title": "Sociology 101"
+  },
+  {
+    "_id": {
+      "$oid": "66f3a9ea26d61b3a4734bebe"
+    },
+    "subject_name": "Psychology",
+    "price": 260,
+    "location": "Building L, Room 203",
+    "seats_available": 5,
+    "lesson_title": "Psychology 202"
+  },
+  {
+    "_id": {
+      "$oid": "66f3a9ea26d61b3a4734bebf"
+    },
+    "subject_name": "Philosophy",
+    "price": 240,
+    "location": "Building M, Room 302",
+    "seats_available": 5,
+    "lesson_title": "Philosophy 302"
+  },
+  {
+    "_id": {
+      "$oid": "66f3a9ea26d61b3a4734bec0"
+    },
+    "subject_name": "Music Theory",
+    "price": 200,
+    "location": "Building N, Room 103",
+    "seats_available": 5,
+    "lesson_title": "Music Theory 103"
+  },
+  {
+    "_id": {
+      "$oid": "66f3a9ea26d61b3a4734bec1"
+    },
+    "subject_name": "Political Science",
+    "price": 320,
+    "location": "Building O, Room 402",
+    "seats_available": 5,
+    "lesson_title": "Political Science 401"
+  }
+]
