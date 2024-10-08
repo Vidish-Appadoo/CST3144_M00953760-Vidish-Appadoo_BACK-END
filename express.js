@@ -1,41 +1,49 @@
 const express = require('express');
 const { MongoClient } = require('mongodb');
 const cors = require('cors');
+const path = require('path');
 
-
-const MONGO_URI = "mongodb+srv://admin:admin@cluster0.opsc7.mongodb.net/"
+const MONGO_URI = "mongodb+srv://admin:admin@cluster0.opsc7.mongodb.net/";
 
 const app = express();
 app.use(express.json()); // Middleware to parse JSON
-app.use(cors());
+app.use(cors()); // Enable CORS
+
+// Logger middleware to log each request
+function logger(req, res, next) {
+    console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
+    next(); // Proceed to the next middleware or route handler
+}
+
+app.use(logger); // Apply the logger middleware globally
+
+// Serve static files from the "assets" directory
+app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
 // Connect to Mongo
 const client = new MongoClient(MONGO_URI);
 
-let db, lessonsCollection;
+let db, lessonsCollection, ordersCollection;
 
 // Connect to MongoDB
 async function connectToMongo() {
     try {
-    await client.connect();
-    db = client.db('CST3144_M00953760');  
-    lessonsCollection = db.collection('LESSON');
-    ordersCollection = db.collection('ORDERS');
-    console.log('Connected to MongoDB');
+        await client.connect();
+        db = client.db('CST3144_M00953760');
+        lessonsCollection = db.collection('LESSON');
+        ordersCollection = db.collection('ORDERS');
     } catch (error) {
-    console.error('MongoDB connection failed:', error);
+        console.error('MongoDB connection failed:', error);
     }
 }
 
-// API route to get lessons data and send it to front-end
+// API route to get lessons data and send it to the front-end
 app.get('/lessons', async (req, res) => {
     try {
-    const lessons = await lessonsCollection.find({}).toArray();
-    console.log("Getting lessons data");
-    res.json(lessons); // Send lessons data as JSON
-    console.log("Sending lessons data to front-end");
+        const lessons = await lessonsCollection.find({}).toArray();
+        res.json(lessons); // Send lessons data as JSON
     } catch (error) {
-    res.status(500).json({ message: 'Failed to fetch lessons data' });
+        res.status(500).json({ message: 'Failed to fetch lessons data' });
     }
 });
 
@@ -73,7 +81,6 @@ app.post('/lessons/checkout', async (req, res) => {
         };
 
         await ordersCollection.insertOne(orderData);
-
         res.json({ success: true, message: 'Checkout and seat update successful!' });
     } catch (error) {
         console.error('Error during checkout:', error);
@@ -83,28 +90,26 @@ app.post('/lessons/checkout', async (req, res) => {
 
 // Add a new route to handle search requests
 app.get('/lessons/search', async (req, res) => {
-    const searchTerm = req.query.q;  // Get the search term from the query string
+    const searchTerm = req.query.q; // Get the search term from the query string
     try {
         // Perform a case-insensitive search using MongoDB's $regex
         const filteredLessons = await lessonsCollection.find({
-            lesson_title: { $regex: searchTerm, $options: 'i' }  // Case-insensitive search
+            lesson_title: { $regex: searchTerm, $options: 'i' } // Case-insensitive search
         })
-        .sort({ lesson_title: 1 })  // Sort alphabetically by lesson_title
-        .toArray();
-
-        res.json(filteredLessons);  // Return filtered lessons as JSON
+            .sort({ lesson_title: 1 }) // Sort alphabetically by lesson_title
+            .toArray();
+        res.json(filteredLessons); // Return filtered lessons as JSON
     } catch (error) {
         console.error('Error during search:', error);
         res.status(500).json({ message: 'Failed to fetch search results' });
     }
 });
 
-
-
+// Connect to MongoDB
 connectToMongo();
 
 // Start the server
-const PORT =  3000;
+const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
