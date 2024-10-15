@@ -70,12 +70,14 @@ app.put('/lessons/update-seats', async (req, res) => {
 // API route for checkout
 app.post('/lessons/checkout', async (req, res) => {
     const { order } = req.body;
-    const { name, phone_number, lessons_taken, seats_taken } = order;
+    const { name, phone_number, email, lessons_taken, seats_taken } = order;
+
     try {
         // Store the order in the ORDERS collection
         const orderData = {
-            name: name,
+            name: name, // Store full name
             phone_number: phone_number,
+            email: email, // Store email as well
             lessons_taken: lessons_taken,
             seats_taken: seats_taken,
         };
