@@ -2,20 +2,14 @@ const express = require('express');
 const { MongoClient } = require('mongodb');
 const cors = require('cors');
 const path = require('path');
+const morgan = require('morgan');
 
 const MONGO_URI = "mongodb+srv://admin:admin@cluster0.opsc7.mongodb.net/";
 
 const app = express();
 app.use(express.json()); // Middleware to parse JSON
-app.use(cors()); // Enable CORS
-
-// Logger middleware to log each request
-function logger(req, res, next) {
-    console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
-    next(); // Proceed to the next middleware or route handler
-}
-
-app.use(logger); // Apply the logger middleware globally
+app.use(cors()); // // Apply CORS to allow requests from different domains
+app.use(morgan('short')); // Use Morgan for logging requests
 
 // Serve static files from the "assets" directory
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
