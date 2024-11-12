@@ -105,7 +105,7 @@ app.get('/lessons/search', async (req, res) => {
 connectToMongo();
 
 // Start the server
-const port = 10000
+const port = process.env.PORT || 4000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
